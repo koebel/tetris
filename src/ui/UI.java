@@ -31,7 +31,7 @@ public class UI extends PApplet {
     @Override
     public void setup(){
         app = this;
-        shape = Shape.getNewShape((int)random(0, 3), width/2, 10);
+        shape = Shape.getNewShape((int)random(0, 3), width/2, sizeBorderY);
         grid = new Grid();
         frameRate(3);
     }
@@ -42,6 +42,9 @@ public class UI extends PApplet {
         grid.drawGrid();
         shape.drawShape();
         shape.moveVertical();
+        fill(0);
+        noStroke();
+        rect(0, 0, width, sizeBorderY);
     }
 
     @Override
