@@ -6,12 +6,13 @@ import processing.core.*;
 public class ui extends PApplet {
     int sizeX= 10;
     int sizeY = 20;
-    public int sizeRect = 40;
+    private static int sizeRect = 40;
     int sizeBorderX = 200;
     int sizeBorderY = 50;
 
 
     public void settings() {
+
         size(sizeX*sizeRect+2*sizeBorderX,sizeY*sizeRect+2*sizeBorderY);
     }
     public void setup(){
@@ -30,6 +31,10 @@ public class ui extends PApplet {
             }
         }
 
+    }
+
+    public static int getSizeRect() {
+        return sizeRect;
     }
 
     public static void main(String args[]) {
