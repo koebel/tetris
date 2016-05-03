@@ -3,7 +3,7 @@
  */
 import processing.core.PApplet;
 
-public class grid extendes PApplet {
+public class grid extends PApplet {
     int width = 10;
     int height = 20;
     int [][] matrix = new int[width][height];
@@ -14,7 +14,7 @@ public class grid extendes PApplet {
 
     // matrix initialisieren
     for (int i = 0; i < matrix.length; i++) {
-        for (int j = 0; j < matrix[0].length; j++) {
+        for (int j = 0; j < matrix[i].length; j++) {
             matrix[i][j] = 0;
         }
     }
@@ -22,7 +22,7 @@ public class grid extendes PApplet {
     public void draw() {
         background(255);
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
+            for (int j = 0; j < matrix[i].length; j++) {
                 if(matrix[i][j]>=1)
                 fill(255,0,0);
                 rect(i*ui.rectSize, j*ui.rectSize, rectSize, rectSize);
