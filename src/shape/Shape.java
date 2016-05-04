@@ -1,5 +1,6 @@
 package shape;
 
+import ui.Grid;
 import ui.UI;
 
 /**
@@ -29,10 +30,11 @@ public abstract class Shape {
 
     /**
      * this method creates a new shape with the given parameter
+     *
      * @param random random number
      * @return Shape object
      */
-    public static Shape getNewShape(int random, int startX, int startY){
+    public static Shape getNewShape(int random, int startX, int startY) {
         switch (random) {
             case 0:
                 return new Line(startX, startY);
@@ -57,12 +59,19 @@ public abstract class Shape {
     /**
      * moves the Shape object down
      */
-    public void moveVertical() {
+    public boolean moveVertical(boolean fast) {
+        for (Rectangle rectangle : rectangles) {
+            if (GRIDSIZE * Grid.getGridHeight() <= rectangle.getY()) {
+                return true;
+            }
+        }
         move(0, GRIDSIZE);
+        return false;
     }
 
     /**
      * moves the object left or right, depending on the boolean param
+     *
      * @param left move the to left = true, move to right = false
      */
     public void moveHorizontal(boolean left) {
@@ -91,13 +100,14 @@ public abstract class Shape {
         return this.rotation;
     }
 
-    protected void setRotation(int rotation){
+    protected void setRotation(int rotation) {
         this.rotation = rotation;
     }
 
 
     /**
      * helps with simplifying the movment of the shape
+     *
      * @param x value for the movement of the x coordinate
      * @param y value for the movement of the y coordinate
      */
