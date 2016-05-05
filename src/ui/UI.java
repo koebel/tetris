@@ -52,7 +52,7 @@ public class UI extends PApplet {
         } else {
             frameRate(framerate);
         }
-        if (shape.moveVertical(false)) {
+        if (shape.moveVertical()) {
             shape = Shape.getNewShape((int) random(0, 3), width / 2, sizeBorderY);
         }
         fill(0);

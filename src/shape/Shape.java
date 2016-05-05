@@ -59,7 +59,7 @@ public abstract class Shape {
     /**
      * moves the Shape object down
      */
-    public boolean moveVertical(boolean fast) {
+    public boolean moveVertical() {
         for (Rectangle rectangle : rectangles) {
             if (GRIDSIZE * Grid.getGridHeight() <= rectangle.getY()) {
                 return true;
@@ -107,7 +107,6 @@ public abstract class Shape {
 
     /**
      * helps with simplifying the movment of the shape
-     *
      * @param x value for the movement of the x coordinate
      * @param y value for the movement of the y coordinate
      */
