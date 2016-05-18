@@ -1,7 +1,7 @@
 package shape;
 
+import config.Config;
 import ui.Grid;
-import ui.UI;
 
 /**
  * Created by yanni on 02.05.2016
@@ -10,7 +10,7 @@ import ui.UI;
 
 public abstract class Shape {
 
-    protected static final int GRIDSIZE = UI.getSizeRect();
+    protected static final int GRIDSIZE = Config.GRIDSIZE;
 
     private Rectangle[] rectangles = new Rectangle[4];
     private int rotation;
@@ -18,6 +18,9 @@ public abstract class Shape {
     protected Shape(int startX, int startY) {
         this.rotation = 0;
         initialize(startX, startY);
+        for (Rectangle rectangle : rectangles) {
+            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+        }
     }
 
     //***** abstract methods
@@ -25,6 +28,8 @@ public abstract class Shape {
     public abstract void rotate();
 
     protected abstract void initialize(int startX, int startY);
+
+    protected abstract boolean canMoveDown(Grid grid);
 
     //***** API
 
@@ -39,33 +44,30 @@ public abstract class Shape {
             case 0:
                 return new Line(startX, startY);
             case 1:
-                return new Step(startX, startY);
+                return new Line(startX, startY);
             case 2:
-                return new Cube(startX, startY);
+                return new Line(startX, startY);
             default:
                 return null;
         }
     }
 
     /**
-     * draws the shape
-     */
-    public void drawShape() {
-        for (Rectangle rectangle : rectangles) {
-            rectangle.drawRect();
-        }
-    }
-
-    /**
      * moves the Shape object down
+     *
+     * @return true if object is at the bottom of the grid
      */
-    public boolean moveVertical() {
-        for (Rectangle rectangle : rectangles) {
-            if (GRIDSIZE * Grid.getGridHeight() <= rectangle.getY()) {
-                return true;
-            }
+    public boolean moveVertical(Grid grid) {
+        if (!canMoveDown(grid)) {
+            return true;
         }
-        move(0, GRIDSIZE);
+        for (Rectangle rectangle : rectangles) {
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+        }
+        move(0, 1);
+        for (Rectangle rectangle : rectangles) {
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+        }
         return false;
     }
 
@@ -74,11 +76,17 @@ public abstract class Shape {
      *
      * @param left move the to left = true, move to right = false
      */
-    public void moveHorizontal(boolean left) {
+    public void moveHorizontal(boolean left, Grid grid) {
         if (left) {
-            move(-GRIDSIZE, 0);
+            if(!canMoveLeft(grid)) {
+                return;
+            }
+            move(-1, 0);
         } else {
-            move(GRIDSIZE, 0);
+            if(!canMoveRight(grid)) {
+                return;
+            }
+            move(1, 0);
         }
     }
 
@@ -88,7 +96,7 @@ public abstract class Shape {
         return rectangles[index];
     }
 
-    protected Rectangle[] getAllRectangles() {
+    public Rectangle[] getAllRectangles() {
         return rectangles;
     }
 
@@ -106,16 +114,47 @@ public abstract class Shape {
 
 
     /**
-     * helps with simplifying the movment of the shape
+     * helps with simplifying the movement of the shape
+     *
      * @param x value for the movement of the x coordinate
      * @param y value for the movement of the y coordinate
      */
     private void move(int x, int y) {
         for (Rectangle rectangle : rectangles) {
-            rectangle.setY(rectangle.getY() + y);
+            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+            rectangle.setRow(rectangle.getRow() + x);
+            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
         }
         for (Rectangle rectangle : rectangles) {
-            rectangle.setX(rectangle.getX() + x);
+            if (rectangle.getCollumn() + y <= 23) {
+                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+                rectangle.setCollumn(rectangle.getCollumn() + y);
+                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            }
         }
+    }
+
+    public boolean canMoveRight(Grid grid){
+        for (Rectangle rectangle : getAllRectangles()){
+            if(rectangle.getRow()+1 >= Config.ROWS){
+                return false;
+            }
+            if(grid.isOccupied(rectangle.getRow()+1, rectangle.getCollumn())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean canMoveLeft(Grid grid){
+        for (Rectangle rectangle : getAllRectangles()){
+            if(rectangle.getRow()-1 < 0){
+                return false;
+            }
+            if(grid.isOccupied(rectangle.getRow()-1, rectangle.getCollumn()) | rectangle.getRow() <= 0){
+                return false;
+            }
+        }
+        return true;
     }
 }

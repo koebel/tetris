@@ -23,6 +23,8 @@ public class Rectangle {
     private int y;
     private int size;
     private int color;
+    private int row;
+    private int collumn;
 
     //***** consturctor
     protected Rectangle(int x, int y, int size, int color) {
@@ -30,6 +32,8 @@ public class Rectangle {
         this.y = y;
         this.size = size;
         this.color = color;
+        this.row = x;
+        this.collumn = y;
     }
 
     //***** protected methods
@@ -59,4 +63,21 @@ public class Rectangle {
         this.x = x;
         this.y = y;
     }
+
+    public int getRow(){
+        return this.row;
+    }
+
+    protected void setRow(int row){
+        this.row = row;
+    }
+
+    public int getCollumn(){
+        return this.collumn;
+    }
+
+    protected void setCollumn(int collumn){
+        this.collumn = collumn;
+    }
+
 }

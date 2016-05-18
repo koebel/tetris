@@ -1,5 +1,7 @@
 package shape;
 
+import ui.Grid;
+
 /**
  * Created by yanni on 03.05.2016
  */
@@ -40,6 +42,11 @@ public class Step extends Shape {
         setRectangle(1, new Rectangle(startX + GRIDSIZE, startY, GRIDSIZE, Rectangle.YELLOW));
         setRectangle(2, new Rectangle(startX + GRIDSIZE, startY - GRIDSIZE, GRIDSIZE, Rectangle.YELLOW));
         setRectangle(3, new Rectangle(startX + 2 * GRIDSIZE, startY - GRIDSIZE, GRIDSIZE, Rectangle.YELLOW));
+    }
+
+    @Override
+    protected boolean canMoveDown(Grid grid){
+        return true;
     }
 }
 

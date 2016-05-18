@@ -5,8 +5,10 @@ package ui;
  * this class is a Singleton and should only be accessed with the method 'getInstance()'
  */
 
+import config.Config;
 import processing.core.PApplet;
 import shape.Shape;
+
 
 public class UI extends PApplet {
 
@@ -15,49 +17,39 @@ public class UI extends PApplet {
     }
 
     private static PApplet app;
-    private static int sizeRect = 40;
 
-    int sizeX = 10;
-    int sizeY = 20;
-    int sizeBorderX = 200;
-    int sizeBorderY = 50;
     int framerate = 3;
     Shape shape;
     Grid grid;
 
     @Override
     public void settings() {
-        size(sizeX * sizeRect + 2 * sizeBorderX, sizeY * sizeRect + 2 * sizeBorderY);
+        size(Config.ROWS * Config.GRIDSIZE + 2 * Config.BORDER_X, Config.COLlUMNS * Config.GRIDSIZE + 2 * Config.BORDER_Y);
     }
 
     @Override
     public void setup() {
         app = this;
-        shape = Shape.getNewShape((int) random(0, 3), width / 2, sizeBorderY);
         grid = new Grid();
-        frameRate(framerate);
+        shape = Shape.getNewShape((int) random(0, 3), 5, 4);
+        //frameRate(framerate);
     }
 
     @Override
     public void draw() {
-        drawBoard();
-        grid.drawGrid();
-        shape.drawShape();
-        if (keyPressed) {
-            if (key == CODED) {
-                if (keyCode == DOWN) {
-                    frameRate(3*framerate);
-                }
-            }
-        } else {
+        if (!keyPressed) {
             frameRate(framerate);
         }
-        if (shape.moveVertical()) {
-            shape = Shape.getNewShape((int) random(0, 3), width / 2, sizeBorderY);
+        grid.drawGrid();
+        if (shape.moveVertical(grid)) {
+            shape = Shape.getNewShape((int) random(0, 3), 5, 4);
         }
-        fill(0);
-        noStroke();
-        rect(0,0,width, sizeBorderY);
+        //draw circle which hides the incoming objects
+        {
+            fill(0);
+            noStroke();
+            rect(0, 0, width, Config.BORDER_Y);
+        }
     }
 
 
@@ -66,37 +58,28 @@ public class UI extends PApplet {
         if (key == CODED) {
             switch (keyCode) {
                 case RIGHT:
-                    shape.moveHorizontal(false);
+                    shape.moveHorizontal(false, grid);
                     break;
                 case LEFT:
-                    shape.moveHorizontal(true);
+                    shape.moveHorizontal(true, grid);
                     break;
                 case SHIFT:
                     shape.rotate();
                     break;
+                case DOWN:
+                    frameRate(3 * framerate);
+                    break;
+                default:
+                    frameRate(framerate);
             }
         }
-    }
-
-    public static int getSizeRect() {
-        return sizeRect;
     }
 
     /**
      * draws the board on the UI
      */
-    private void drawBoard() {
-        fill(255, 255, 255);
-        textSize(20);
-        text("Tetris 2", 0, 0);
-        background(0, 0, 0);
-        fill(0, 0, 0);
-        stroke(255, 255, 255);
-        for (int y = 0; y < sizeY; y++) {
-            for (int x = 0; x < sizeX; x++) {
-                rect(x * sizeRect + sizeBorderX, y * sizeRect + sizeBorderY, sizeRect, sizeRect);
-            }
-        }
+    private void drawUI() {
+
     }
 
     /**

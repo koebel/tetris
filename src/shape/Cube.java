@@ -1,5 +1,7 @@
 package shape;
 
+import ui.Grid;
+
 /**
  * Created by yanni on 03.05.2016
  * this class creates a cube with the size of 2x2 with 4 Rectangles
@@ -31,5 +33,10 @@ public class Cube extends Shape {
         setRectangle(1, new Rectangle(startX, startY - GRIDSIZE, GRIDSIZE, Rectangle.RED));
         setRectangle(2, new Rectangle(startX + GRIDSIZE, startY, GRIDSIZE, Rectangle.RED));
         setRectangle(3, new Rectangle(startX + GRIDSIZE, startY - GRIDSIZE, GRIDSIZE, Rectangle.RED));
+    }
+
+    @Override
+    protected boolean canMoveDown(Grid grid){
+        return true;
     }
 }
