@@ -87,18 +87,18 @@ public class Line extends Shape {
             }
             return true;
         } else {
-            Rectangle[] subRectangles = {getRectangle(0), getRectangle(3)};
-            for (Rectangle rectangle : subRectangles) {
-                if (rectangle.getRow() + 1 < Config.ROWS) {
-                    return false;
-                }
-                if (grid.isOccupied(rectangle.getRow() + 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
-                    return false;
-                }
+            Rectangle rectangle = getRectangle(3);
+            if (rectangle.getRow() + 1 < Config.ROWS) {
+                return false;
             }
-            return true;
+            if (grid.isOccupied(rectangle.getRow() + 1, rectangle.getCollumn())) {
+                return false;
+            }
         }
+        return true;
     }
+
+}
 
     @Override
     public boolean canMoveLeft(Grid grid) {
@@ -113,18 +113,17 @@ public class Line extends Shape {
             }
             return true;
         } else {
-            Rectangle[] subRectangles = {getRectangle(0), getRectangle(3)};
-            for (Rectangle rectangle : subRectangles) {
-                if (rectangle.getRow() - 1 > 0) {
-                    System.out.println(false);
-                    return false;
-                }
-                if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
-                    System.out.println(true);
-                    return false;
-                }
+            Rectangle rectangle = getRectangle(0);
+            if (rectangle.getRow() - 1 > 0) {
+                System.out.println(false);
+                return false;
             }
-            return true;
+            if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn())) {
+                System.out.println(true);
+                return false;
+            }
         }
+        return true;
     }
+}
 }
