@@ -116,9 +116,11 @@ public class Line extends Shape {
             Rectangle[] subRectangles = {getRectangle(0), getRectangle(3)};
             for (Rectangle rectangle : subRectangles) {
                 if (rectangle.getRow() - 1 > 0) {
+                    System.out.println(false);
                     return false;
                 }
                 if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
+                    System.out.println(true);
                     return false;
                 }
             }

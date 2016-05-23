@@ -6,7 +6,6 @@ package ui;
 
 import config.Config;
 import processing.core.*;
-import java.util.TreeMap;
 
 public class Grid {
 
@@ -45,11 +44,9 @@ public class Grid {
     */
 
     private int [][] matrix = new int[Config.ROWS][Config.COLlUMNS];
-    private TreeMap<Integer, String> coordinates;
 
     public Grid(){
         grid = this;
-        coordinates = new TreeMap<>();
         // matrix initialisieren
         for(int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
