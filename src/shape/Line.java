@@ -89,7 +89,7 @@ public class Line extends Shape {
         } else {
             Rectangle[] subRectangles = {getRectangle(0), getRectangle(3)};
             for (Rectangle rectangle : subRectangles) {
-                if (rectangle.getRow() + 1 < 0) {
+                if (rectangle.getRow() + 1 < Config.ROWS) {
                     return false;
                 }
                 if (grid.isOccupied(rectangle.getRow() + 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
@@ -115,7 +115,7 @@ public class Line extends Shape {
         } else {
             Rectangle[] subRectangles = {getRectangle(0), getRectangle(3)};
             for (Rectangle rectangle : subRectangles) {
-                if (rectangle.getRow() - 1 < 0) {
+                if (rectangle.getRow() - 1 > 0) {
                     return false;
                 }
                 if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
