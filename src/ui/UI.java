@@ -22,7 +22,7 @@ public class UI extends PApplet {
     Shape shape;
     Grid grid;
 
-    @Override
+    //@Override
     public void settings() {
         size(Config.ROWS * Config.GRIDSIZE + 2 * Config.BORDER_X, Config.COLlUMNS * Config.GRIDSIZE + 2 * Config.BORDER_Y);
     }
