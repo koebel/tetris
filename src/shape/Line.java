@@ -20,6 +20,11 @@ public class Line extends Shape {
      */
     @Override
     public void rotate() {
+        if (getRotation() == 0 & (getRectangle(0).getRow() <= 0 | getRectangle(0).getRow() >= Config.ROWS - 2)) {
+            return;
+        } else if (getRectangle(0).getRow() <= 0 | getRectangle(3).getRow() >= Config.ROWS - 2) {
+            return;
+        }
         for (Rectangle rectangle : getAllRectangles()) {
             Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
         }
@@ -88,42 +93,30 @@ public class Line extends Shape {
             return true;
         } else {
             Rectangle rectangle = getRectangle(3);
-            if (rectangle.getRow() + 1 < Config.ROWS) {
-                return false;
-            }
-            if (grid.isOccupied(rectangle.getRow() + 1, rectangle.getCollumn())) {
+            if (rectangle.getRow() == Config.ROWS - 1 || grid.isOccupied(rectangle.getRow() + 1, rectangle.getCollumn())) {
                 return false;
             }
         }
         return true;
     }
 
-}
 
     @Override
     public boolean canMoveLeft(Grid grid) {
         if (getRotation() == 0) {
             for (Rectangle rectangle : getAllRectangles()) {
-                if (rectangle.getRow() - 1 < 0) {
-                    return false;
-                }
-                if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn()) | rectangle.getRow() <= 0) {
+                if (rectangle.getRow() - 1 < 0 || grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn())) {
                     return false;
                 }
             }
             return true;
         } else {
             Rectangle rectangle = getRectangle(0);
-            if (rectangle.getRow() - 1 > 0) {
-                System.out.println(false);
-                return false;
-            }
-            if (grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn())) {
+            if (rectangle.getRow() == 0 || grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn())) {
                 System.out.println(true);
                 return false;
             }
         }
         return true;
     }
-}
 }

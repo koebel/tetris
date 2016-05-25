@@ -132,6 +132,11 @@ public class UnitTests {
 
         testShape = new Line(4, 5);
         assertEquals(true, testShape.canMoveLeft(testGrid));
+
+        testShape = new Line(1, 5);
+        testShape.rotate();
+        System.out.println(testShape.getAllRectangles()[0].getRow() + " " + testShape.getAllRectangles()[0].getCollumn());
+        assertEquals(false, testShape.canMoveLeft(testGrid));
     }
 
     @Test

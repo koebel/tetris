@@ -77,7 +77,12 @@ public class Grid {
     }
 
     public void setGridValue(int x, int y, int value){
-        matrix[x][y] = value;
+        int copy = matrix[x][y];
+        try{
+            matrix[x][y] = value;
+        } catch (ArrayIndexOutOfBoundsException e){
+            matrix[x][y] = copy;
+        }
     }
 
     public boolean isOccupied(int x, int y){

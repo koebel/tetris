@@ -11,7 +11,7 @@ public class Config {
     public final static int ROWS = 10;
     public final static int COLlUMNS = 24;
 
-    private static int FRAMERATE = 3;
+    private static int FRAMERATE = 5;
 
 
     public static int getFRAMERATE() {

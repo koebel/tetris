@@ -18,7 +18,6 @@ public class UI extends PApplet {
 
     private static PApplet app;
 
-    int framerate = 3;
     Shape shape;
     Grid grid;
 
@@ -32,13 +31,13 @@ public class UI extends PApplet {
         app = this;
         grid = new Grid();
         shape = Shape.getNewShape((int) random(0, 3), 5, 4);
-        //frameRate(framerate);
+        //frameRate(Config.getFRAMERATE());
     }
 
     @Override
     public void draw() {
         if (!keyPressed) {
-            frameRate(framerate);
+            frameRate(Config.getFRAMERATE());
         }
         grid.drawGrid();
         if (shape.moveVertical(grid)) {
@@ -67,10 +66,10 @@ public class UI extends PApplet {
                     shape.rotate();
                     break;
                 case DOWN:
-                    frameRate(3 * framerate);
+                    frameRate(Config.getFRAMERATE() * 3);
                     break;
                 default:
-                    frameRate(framerate);
+                    frameRate(Config.getFRAMERATE());
             }
         }
     }
