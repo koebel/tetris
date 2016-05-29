@@ -21,28 +21,6 @@ public class Grid {
                                  {0, 0, 255}
                                  };
 
-    /*
-    private int [][] colors = new int [maxColors][3];
-    // black
-    setGridColor(0, 0, 0, 0);
-    // white
-    setGridColor(1, 255, 255, 255);
-    // red
-    setGridColor(2, 255, 0, 0);
-    // yellow
-    setGridColor(3, 255, 255, 0);
-    // green
-    setGridColor(4, 0, 255, 0);
-    // cyan
-    setGridColor(5, 0, 255, 255);
-    // blue
-    setGridColor(6, 0, 0, 255);
-    // pink
-    setGridColor(7, 255, 0, 255);
-    // grey
-    setGridColor(8, 120, 120, 120);
-    */
-
     private int [][] matrix = new int[Config.ROWS][Config.COLlUMNS];
 
     public Grid(){
