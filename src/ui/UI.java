@@ -42,6 +42,8 @@ public class UI extends PApplet {
         }
         grid.drawGrid();
         if (shape.moveVertical(grid)) {
+            // check if there are full Rows in the grid
+            score += grid.checkGrid();
             shape = Shape.getNewShape((int) random(0, 3), 5, 4);
         }
         //draw circle which hides the incoming objects
