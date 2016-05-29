@@ -14,12 +14,20 @@ public class Grid {
 
     // color matrix for up to 10 colorsets
     private int maxColors = 10;
+    private int fillColor = 9;
 
-    private int [][] colors = {   {0, 0, 0},
-                                 {255, 0, 0},
-                                 {0, 255, 0},
-                                 {0, 0, 255}
-                                 };
+    private int [][] colors = {   
+            {0, 0, 0}, 
+            {255, 0, 0},
+            {255, 255, 0},
+            {0, 255, 0},
+            {0, 255, 255},
+            {0, 0, 255},
+            {255, 0, 255},
+            {255, 255, 255},
+            {180, 180, 180},
+            {100, 100, 100}
+    };
 
     private int [][] matrix = new int[Config.ROWS][Config.COLlUMNS];
 
@@ -37,17 +45,15 @@ public class Grid {
         int current;
         app.background(0);
         app.fill(0);
-        app.stroke(255);
+        //app.stroke(255);
+        app.stroke(colors[fillColor][0],colors[fillColor][1],colors[fillColor][2]);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if(matrix[i][j]>0) {
                     current = matrix [i][j];
-                    //app.fill(255,0,0);
                     app.fill(colors[current][0],colors[current][1],colors[current][2]);
                 } else {
-                    //app.fill(0);
                     app.fill(colors[0][0],colors[0][1],colors[0][2]);
-
                 }
                 app.rect(i*Config.GRIDSIZE+Config.BORDER_X, j*Config.GRIDSIZE+Config.BORDER_Y, Config.GRIDSIZE, Config.GRIDSIZE);
             }
