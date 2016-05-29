@@ -53,6 +53,45 @@ public class Grid {
             }
         }
     }
+    
+    // method to check if there are any full rows in the grid and delete them
+    // returns how many full rows have been deleted
+    public int checkGrid() {
+        int currentrow = Config.COLlUMNS - 1;
+        int occupiedFields = 0;
+        int rowsDeleted = 0;
+
+        while (currentrow > 3) {
+            // check row
+            for (int i = 0; i < matrix.length; i++) {
+                if (matrix[i][currentrow] > 0)
+                    occupiedFields++;
+            }
+
+            // if row is fully occupied shift content one row down
+            // then check the same row again because content has been shifted
+            if (occupiedFields == Config.ROWS) {
+                shiftRow (currentrow);
+                rowsDeleted++;
+            }
+            // if row was not full check next row
+            else {
+                currentrow--;
+            }
+            occupiedFields = 0;
+        }
+        return rowsDeleted;
+    }
+
+    // shifts the content of the grid one row up from the bottom to the top
+    // starting with the row specified as rowindex
+    public void shiftRow(int rowindex){
+        for (int i = rowindex; i>1; i--) {
+            for (int j = 0; j < matrix.length; j++) {
+                matrix[j][i] = matrix[j][i - 1];
+            }
+        }
+    }
 
     public void setGridValue(int x, int y, int value){
         int copy = matrix[x][y];
