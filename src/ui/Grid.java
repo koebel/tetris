@@ -12,9 +12,10 @@ public class Grid {
     private static PApplet app = UI.getInstance();
     public static Grid grid;
 
-    // color matrix for up to 10 colorsets
+    // color matrix for up to 10 colorsets test
     private int maxColors = 10;
     private int fillColor = 9;
+
     private int [][] colors = {
             {0, 0, 0},
             {255, 0, 0},
