@@ -9,6 +9,8 @@ import config.Config;
 
 public class Line extends Shape {
 
+    private static final int ID = 1;
+
     //***** consturctor
     public Line(int startX, int startY) {
         super(startX, startY);
@@ -38,14 +40,14 @@ public class Line extends Shape {
             int xMovement = -1;
             int i = 0;
             for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + xMovement, rectangle.getCollumn() + xMovement, 40, Rectangle.BLUE));
+                setRectangle(i++, new Rectangle(rectangle.getRow() + xMovement, rectangle.getCollumn() + xMovement, 40, ID));
                 ++xMovement;
             }
         } else {
             int yMovement = 1;
             int i = 0;
             for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, Rectangle.BLUE));
+                setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, ID));
                 rectangle.setPosition(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement);
                 --yMovement;
             }
@@ -65,7 +67,7 @@ public class Line extends Shape {
     @Override
     protected void initialize(int row, int collumn) {
         for (int i = 0; i != 4; ++i) {
-            setRectangle(i, new Rectangle(row, collumn -= 1, GRIDSIZE, Rectangle.BLUE));
+            setRectangle(i, new Rectangle(row, collumn -= 1, GRIDSIZE, ID));
         }
     }
 

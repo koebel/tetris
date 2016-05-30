@@ -20,7 +20,7 @@ public abstract class Shape {
         this.rotation = 0;
         initialize(startX, startY);
         for (Rectangle rectangle : rectangles) {
-            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
         }
     }
 
@@ -89,7 +89,7 @@ public abstract class Shape {
         }
         move(0, 1);
         for (Rectangle rectangle : rectangles) {
-            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
         }
         return false;
     }
@@ -145,13 +145,13 @@ public abstract class Shape {
         for (Rectangle rectangle : rectangles) {
             Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
             rectangle.setRow(rectangle.getRow() + x);
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
         }
         for (Rectangle rectangle : rectangles) {
             //if (rectangle.getCollumn() + y <= 23) {
                 Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
                 rectangle.setCollumn(rectangle.getCollumn() + y);
-                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
             //}
         }
     }
