@@ -20,6 +20,7 @@ public class UI extends PApplet {
 
     Shape shape;
     Grid grid;
+    int score = 0;
 
     //@Override
     public void settings() {
@@ -41,6 +42,8 @@ public class UI extends PApplet {
         }
         grid.drawGrid();
         if (shape.moveVertical(grid)) {
+            // check if there are full Rows in the grid
+            score += grid.checkGrid();
             shape = Shape.getNewShape((int) random(0, 3), 5, 4);
         }
         //draw circle which hides the incoming objects
@@ -49,6 +52,11 @@ public class UI extends PApplet {
             noStroke();
             rect(0, 0, width, Config.BORDER_Y);
         }
+        
+        //score
+        fill(255);
+        textSize(16);
+        text("score: " +score, 50, 60);
     }
 
 
