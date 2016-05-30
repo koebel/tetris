@@ -1,7 +1,6 @@
 package shape;
 
 import config.Config;
-import ui.Grid;
 
 /**
  * Created by yanni on 03.05.2016
@@ -20,13 +19,20 @@ public class Line extends Shape {
      */
     @Override
     public void rotate() {
-        if (getRotation() == 0 & (getRectangle(0).getRow() <= 0 | getRectangle(0).getRow() >= Config.ROWS - 2)) {
-            return;
-        } else if (getRectangle(0).getRow() <= 0 | getRectangle(3).getRow() >= Config.ROWS - 2) {
-            return;
+        if(getRotation() == 1){
+            if(getRectangle(0).getRow() < 0 | getRectangle(3).getRow() > Config.ROWS - 1){
+                return;
+            }
+        } else {
+            if (getRectangle(0).getRow() <= 0 | getRectangle(0).getRow() >= Config.ROWS - 2) {
+                return;
+            }
+            if(!canMoveLeft() | !canMoveRight() ){
+                return;
+            }
         }
         for (Rectangle rectangle : getAllRectangles()) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
         }
         if (getRotation() == 0) {
             int xMovement = -1;
@@ -45,7 +51,7 @@ public class Line extends Shape {
             }
         }
         for (Rectangle rectangle : getAllRectangles()) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
         }
         setRotation(getRotation() == 1 ? 0 : 1);
     }
@@ -53,23 +59,25 @@ public class Line extends Shape {
     /**
      * initializes the 4 needed Rectangles
      *
-     * @param startX x coordinate of spawning point
-     * @param startY y coordinate of spawning point
+     * @param row     x coordinate of spawning point
+     * @param collumn y coordinate of spawning point
      */
     @Override
-    protected void initialize(int startX, int startY) {
+    protected void initialize(int row, int collumn) {
         for (int i = 0; i != 4; ++i) {
-            setRectangle(i, new Rectangle(startX, startY -= 1, GRIDSIZE, Rectangle.BLUE));
+            setRectangle(i, new Rectangle(row, collumn -= 1, GRIDSIZE, Rectangle.BLUE));
         }
     }
 
     @Override
-    protected boolean canMoveDown(Grid grid) {
+    protected boolean canMoveDown() {
+        //just check the rectangle at the bottom if the Line is not rotated
         if (getRotation() == 0) {
             if (getRectangle(0).getCollumn() >= 23 || grid.isOccupied(getRectangle(0).getRow(), getRectangle(0).getCollumn() + 1)) {
                 return false;
             }
         } else {
+            //check every rectangel if the Line is rotated
             for (Rectangle rectangle : getAllRectangles()) {
                 if (rectangle.getCollumn() >= 23 || grid.isOccupied(rectangle.getRow(), rectangle.getCollumn() + 1)) {
                     return false;
@@ -80,7 +88,7 @@ public class Line extends Shape {
     }
 
     @Override
-    public boolean canMoveRight(Grid grid) {
+    public boolean canMoveRight() {
         if (getRotation() == 0) {
             for (Rectangle rectangle : getAllRectangles()) {
                 if (rectangle.getRow() + 1 >= Config.ROWS) {
@@ -102,7 +110,7 @@ public class Line extends Shape {
 
 
     @Override
-    public boolean canMoveLeft(Grid grid) {
+    public boolean canMoveLeft() {
         if (getRotation() == 0) {
             for (Rectangle rectangle : getAllRectangles()) {
                 if (rectangle.getRow() - 1 < 0 || grid.isOccupied(rectangle.getRow() - 1, rectangle.getCollumn())) {

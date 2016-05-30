@@ -24,19 +24,29 @@ public class Cube extends Shape {
 
     /**
      * initializes the 4 needed Rectangles
-     * @param startX x coordinate of spawning point
-     * @param startY y coordinate of spawning point
+     * @param row x coordinate of spawning point
+     * @param collumn y coordinate of spawning point
      */
     @Override
-    protected void initialize(int startX, int startY) {
-        setRectangle(0, new Rectangle(startX, startY, GRIDSIZE, Rectangle.RED));
-        setRectangle(1, new Rectangle(startX, startY - GRIDSIZE, GRIDSIZE, Rectangle.RED));
-        setRectangle(2, new Rectangle(startX + GRIDSIZE, startY, GRIDSIZE, Rectangle.RED));
-        setRectangle(3, new Rectangle(startX + GRIDSIZE, startY - GRIDSIZE, GRIDSIZE, Rectangle.RED));
+    protected void initialize(int row, int collumn) {
+        setRectangle(0, new Rectangle(row, collumn, GRIDSIZE, Rectangle.RED));
+        setRectangle(1, new Rectangle(row, collumn - GRIDSIZE, GRIDSIZE, Rectangle.RED));
+        setRectangle(2, new Rectangle(row + GRIDSIZE, collumn, GRIDSIZE, Rectangle.RED));
+        setRectangle(3, new Rectangle(row + GRIDSIZE, collumn - GRIDSIZE, GRIDSIZE, Rectangle.RED));
     }
 
     @Override
-    protected boolean canMoveDown(Grid grid){
+    public boolean canMoveRight() {
+        return false;
+    }
+
+    @Override
+    public boolean canMoveLeft() {
+        return false;
+    }
+
+    @Override
+    protected boolean canMoveDown(){
         return true;
     }
 }

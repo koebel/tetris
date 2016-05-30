@@ -11,6 +11,7 @@ import ui.Grid;
 public abstract class Shape {
 
     protected static final int GRIDSIZE = Config.GRIDSIZE;
+    protected static Grid grid = Grid.getInstance();
 
     private Rectangle[] rectangles = new Rectangle[4];
     private int rotation;
@@ -19,24 +20,47 @@ public abstract class Shape {
         this.rotation = 0;
         initialize(startX, startY);
         for (Rectangle rectangle : rectangles) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
         }
     }
 
     //***** abstract methods
 
+    /**
+     * rotates the shape
+     */
     public abstract void rotate();
 
-    protected abstract void initialize(int startX, int startY);
+    /**
+     * initializes all the rectangles and arranges them for the initial spawn
+     * @param row spawning row point of the lowest left rectangle
+     * @param collumn spawning collumn point of the lowest left rectangle
+     */
+    protected abstract void initialize(int row, int collumn);
 
-    protected abstract boolean canMoveDown(Grid grid);
+    /**
+     * checks if the Line can move down
+     * @return true if the shape can move down, false if not
+     */
+    protected abstract boolean canMoveDown();
+
+    /**
+     * checks if the Line can move right
+     * @return true if the shape can move right, false if not
+     */
+    public abstract boolean canMoveRight();
+
+    /**
+     * checks if the Line can move down
+     * @return true if the shape can move left, false if not
+     */
+    public abstract boolean canMoveLeft();
 
     //***** API
 
     /**
      * this method creates a new shape with the given parameter
-     *
-     * @param random random number
+     * @param random random number to create shape
      * @return Shape object
      */
     public static Shape getNewShape(int random, int startX, int startY) {
@@ -54,11 +78,10 @@ public abstract class Shape {
 
     /**
      * moves the Shape object down
-     *
      * @return true if object is at the bottom of the grid
      */
     public boolean moveVertical(Grid grid) {
-        if (!canMoveDown(grid)) {
+        if (!canMoveDown()) {
             return true;
         }
         for (Rectangle rectangle : rectangles) {
@@ -73,17 +96,16 @@ public abstract class Shape {
 
     /**
      * moves the object left or right, depending on the boolean param
-     *
      * @param left move the to left = true, move to right = false
      */
-    public void moveHorizontal(boolean left, Grid grid) {
+    public void moveHorizontal(boolean left) {
         if (left) {
-            if(!canMoveLeft(grid)) {
+            if(!canMoveLeft()) {
                 return;
             }
             move(-1, 0);
         } else {
-            if(!canMoveRight(grid)) {
+            if(!canMoveRight()) {
                 return;
             }
             move(1, 0);
@@ -91,8 +113,9 @@ public abstract class Shape {
     }
 
     //***** getter & setter
+    // getter have public access, setter can just be accessed inside the package
 
-    protected Rectangle getRectangle(int index) {
+    public Rectangle getRectangle(int index) {
         return rectangles[index];
     }
 
@@ -104,7 +127,7 @@ public abstract class Shape {
         rectangles[index] = rectangle;
     }
 
-    protected int getRotation() {
+    public int getRotation() {
         return this.rotation;
     }
 
@@ -114,8 +137,7 @@ public abstract class Shape {
 
 
     /**
-     * helps with simplifying the movement of the shape
-     *
+     * moves the shape depending on the x and y coordinates in param
      * @param x value for the movement of the x coordinate
      * @param y value for the movement of the y coordinate
      */
@@ -126,35 +148,11 @@ public abstract class Shape {
             Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
         }
         for (Rectangle rectangle : rectangles) {
-            if (rectangle.getCollumn() + y <= 23) {
+            //if (rectangle.getCollumn() + y <= 23) {
                 Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
                 rectangle.setCollumn(rectangle.getCollumn() + y);
                 Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
-            }
+            //}
         }
-    }
-
-    public boolean canMoveRight(Grid grid){
-        for (Rectangle rectangle : getAllRectangles()){
-            if(rectangle.getRow()+1 < Config.ROWS){
-                return false;
-            }
-            if(grid.isOccupied(rectangle.getRow()+1, rectangle.getCollumn())){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public boolean canMoveLeft(Grid grid){
-        for (Rectangle rectangle : getAllRectangles()){
-            if(rectangle.getRow()-1 >= 0){
-                return false;
-            }
-            if(grid.isOccupied(rectangle.getRow()-1, rectangle.getCollumn()) | rectangle.getRow() <= 0){
-                return false;
-            }
-        }
-        return true;
     }
 }

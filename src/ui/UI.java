@@ -65,10 +65,10 @@ public class UI extends PApplet {
         if (key == CODED) {
             switch (keyCode) {
                 case RIGHT:
-                    shape.moveHorizontal(false, grid);
+                    shape.moveHorizontal(false);
                     break;
                 case LEFT:
-                    shape.moveHorizontal(true, grid);
+                    shape.moveHorizontal(true);
                     break;
                 case SHIFT:
                     shape.rotate();
