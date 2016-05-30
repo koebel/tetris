@@ -109,17 +109,15 @@ public class Grid {
     }
 
     public boolean isOccupied(int x, int y){
-       boolean gameover=false;
+
         if(matrix[x][y] != 0){
             for (int i=x;i<matrix[x].length;i++){
                 if(matrix[x][i] != 0&&matrix[x][0]!=0){
-                    System.out.println("Game Over!");
-
+                   //Game Over Test
+                    app.fill(255);
+                    app.textSize(100);
+                    app.text("Game Over", app.width/2-260, app.height/2);
                     return true;
-                } else
-                {
-
-                    gameover=true;
                 }
             }
 
