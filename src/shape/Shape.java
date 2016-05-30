@@ -68,9 +68,9 @@ public abstract class Shape {
             case 0:
                 return new Line(startX, startY);
             case 1:
-                return new Line(startX, startY);
+                return new Step(startX, startY);
             case 2:
-                return new Line(startX, startY);
+                return new Cube(startX, startY);
             default:
                 return null;
         }
