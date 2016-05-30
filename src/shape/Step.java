@@ -9,6 +9,8 @@ import ui.Grid;
 
 public class Step extends Shape {
 
+    private static final int ID = 2;
+
     public Step(int startX, int startY) {
         super(startX, startY);
     }
@@ -30,14 +32,14 @@ public class Step extends Shape {
             int xMovement = -1;
             int i = 0;
             for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + xMovement, rectangle.getCollumn() + xMovement, 40, Rectangle.BLUE));
+                setRectangle(i++, new Rectangle(rectangle.getRow() + xMovement, rectangle.getCollumn() + xMovement, 40, ID));
                 ++xMovement;
             }
         } else {
             int yMovement = 1;
             int i = 0;
             for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, Rectangle.BLUE));
+                setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, ID));
                 rectangle.setPosition(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement);
                 --yMovement;
             }
@@ -55,10 +57,10 @@ public class Step extends Shape {
      */
     @Override
     protected void initialize(int startX, int startY) {
-        setRectangle(0, new Rectangle(startX, startY, GRIDSIZE, Rectangle.YELLOW));
-        setRectangle(1, new Rectangle(startX + 1, startY, GRIDSIZE, Rectangle.YELLOW));
-        setRectangle(2, new Rectangle(startX + 1, startY - 1, GRIDSIZE, Rectangle.YELLOW));
-        setRectangle(3, new Rectangle(startX + 2, startY - 1, GRIDSIZE, Rectangle.YELLOW));
+        setRectangle(0, new Rectangle(startX, startY, GRIDSIZE, ID));
+        setRectangle(1, new Rectangle(startX + 1, startY, GRIDSIZE, ID));
+        setRectangle(2, new Rectangle(startX + 1, startY - 1, GRIDSIZE, ID));
+        setRectangle(3, new Rectangle(startX + 2, startY - 1, GRIDSIZE, ID));
     }
 
     @Override

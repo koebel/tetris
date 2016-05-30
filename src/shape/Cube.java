@@ -1,13 +1,13 @@
 package shape;
 
-import ui.Grid;
-
 /**
  * Created by yanni on 03.05.2016
  * this class creates a cube with the size of 2x2 with 4 Rectangles
  */
 
 public class Cube extends Shape {
+
+    private static final int ID = 3;
 
     //***** constructor
     public Cube(int startX, int startY) {
@@ -29,10 +29,10 @@ public class Cube extends Shape {
      */
     @Override
     protected void initialize(int row, int collumn) {
-        setRectangle(0, new Rectangle(row, collumn, GRIDSIZE, Rectangle.RED));
-        setRectangle(1, new Rectangle(row, collumn - 1, GRIDSIZE, Rectangle.RED));
-        setRectangle(2, new Rectangle(row + 1, collumn, GRIDSIZE, Rectangle.RED));
-        setRectangle(3, new Rectangle(row + 1, collumn - 1, GRIDSIZE, Rectangle.RED));
+        setRectangle(0, new Rectangle(row, collumn, GRIDSIZE, ID));
+        setRectangle(1, new Rectangle(row, collumn - 1, GRIDSIZE, ID));
+        setRectangle(2, new Rectangle(row + 1, collumn, GRIDSIZE, ID));
+        setRectangle(3, new Rectangle(row + 1, collumn - 1, GRIDSIZE, ID));
     }
 
     @Override
