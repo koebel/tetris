@@ -30,9 +30,9 @@ public class Cube extends Shape {
     @Override
     protected void initialize(int row, int collumn) {
         setRectangle(0, new Rectangle(row, collumn, GRIDSIZE, Rectangle.RED));
-        setRectangle(1, new Rectangle(row, collumn - GRIDSIZE, GRIDSIZE, Rectangle.RED));
-        setRectangle(2, new Rectangle(row + GRIDSIZE, collumn, GRIDSIZE, Rectangle.RED));
-        setRectangle(3, new Rectangle(row + GRIDSIZE, collumn - GRIDSIZE, GRIDSIZE, Rectangle.RED));
+        setRectangle(1, new Rectangle(row, collumn - 1, GRIDSIZE, Rectangle.RED));
+        setRectangle(2, new Rectangle(row + 1, collumn, GRIDSIZE, Rectangle.RED));
+        setRectangle(3, new Rectangle(row + 1, collumn - 1, GRIDSIZE, Rectangle.RED));
     }
 
     @Override
