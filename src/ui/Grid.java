@@ -14,10 +14,9 @@ public class Grid {
 
     // color matrix for up to 10 colorsets
     private int maxColors = 10;
-    private int fillColor = 9;
 
-    private int [][] colors = {   
-            {0, 0, 0}, 
+    private int [][] colors = {
+            {0, 0, 0},
             {255, 0, 0},
             {255, 255, 0},
             {0, 255, 0},
@@ -45,8 +44,7 @@ public class Grid {
         int current;
         app.background(0);
         app.fill(0);
-        //app.stroke(255);
-        app.stroke(colors[fillColor][0],colors[fillColor][1],colors[fillColor][2]);
+        app.stroke(255);
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 if(matrix[i][j]>0) {
@@ -58,14 +56,6 @@ public class Grid {
                 app.rect(i*Config.GRIDSIZE+Config.BORDER_X, j*Config.GRIDSIZE+Config.BORDER_Y, Config.GRIDSIZE, Config.GRIDSIZE);
             }
         }
-    }
-    
-    // method to check if there are any full rows in the grid and delete them
-    // returns how many full rows have been deleted
-    public int checkGrid() {
-        int currentrow = Config.COLlUMNS - 1;
-        int occupiedFields = 0;
-        int rowsDeleted = 0;
 
         while (currentrow > 3) {
             // check row

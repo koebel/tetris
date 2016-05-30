@@ -80,7 +80,7 @@ public class UnitTests {
         Shape testShape = new Line(start, 5);
         Grid testGrid = new Grid();
 
-        testShape.moveHorizontal(true, testGrid);
+        testShape.moveHorizontal(true);
 
         Rectangle[] result = testShape.getAllRectangles();
         int expectedResult = --start;
@@ -88,7 +88,7 @@ public class UnitTests {
             assertEquals(expectedResult, result[i].getRow());
         }
 
-        testShape.moveHorizontal(false, testGrid);
+        testShape.moveHorizontal(false);
 
         result = testShape.getAllRectangles();
         expectedResult = ++start;
@@ -113,10 +113,10 @@ public class UnitTests {
             System.out.println(rectangle.getRow());
         }
 
-        assertEquals(false, testShape.canMoveRight(testGrid));
+        assertEquals(false, testShape.canMoveRight());
 
         testShape = new Line(4, 5);
-        assertEquals(true, testShape.canMoveRight(testGrid));
+        assertEquals(true, testShape.canMoveRight());
     }
 
     @Test
@@ -128,15 +128,15 @@ public class UnitTests {
             System.out.println(rectangle.getRow());
         }
 
-        assertEquals(false, testShape.canMoveLeft(testGrid));
+        assertEquals(false, testShape.canMoveLeft());
 
         testShape = new Line(4, 5);
-        assertEquals(true, testShape.canMoveLeft(testGrid));
+        assertEquals(true, testShape.canMoveLeft());
 
         testShape = new Line(1, 5);
         testShape.rotate();
         System.out.println(testShape.getAllRectangles()[0].getRow() + " " + testShape.getAllRectangles()[0].getCollumn());
-        assertEquals(false, testShape.canMoveLeft(testGrid));
+        assertEquals(false, testShape.canMoveLeft());
     }
 
     @Test
