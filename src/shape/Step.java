@@ -23,18 +23,24 @@ public class Step extends Shape {
         for (Rectangle rectangle : getAllRectangles()) {
             grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
         }
-        switch(getRotation()) {
-            case 0:
+        if(getRotation() == 0) {
                 setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() - 2, GRIDSIZE, ID));
                 setRectangle(1, new Rectangle(getRectangle(1).getRow(),getRectangle(1).getCollumn() ,GRIDSIZE, ID));
                 setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
                 setRectangle(3, new Rectangle(getRectangle(3).getRow() - 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
-                for (Rectangle rectangle : getAllRectangles()) {
-                    grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), ID);
-                }
-                setRotation(1);
             }
+        if(getRotation() == 1) {
+            setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() + 2, GRIDSIZE, ID));
+            setRectangle(1, new Rectangle(getRectangle(1).getRow(),getRectangle(1).getCollumn() ,GRIDSIZE, ID));
+            setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
+            setRectangle(3, new Rectangle(getRectangle(3).getRow() + 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
         }
+        for (Rectangle rectangle : getAllRectangles()) {
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), ID);
+        }
+
+        setRotation(getRotation() == 1 ? 0 : 1);
+    }
 
     /**
      * initializes the 4 needed Rectangles
@@ -70,11 +76,36 @@ public class Step extends Shape {
 
     @Override
     public boolean canMoveLeft() {
+
+        if (getRotation() == 0) {
+            if(getRectangle(0).getRow() - 1 < 0 || grid.isOccupied(getRectangle(0).getRow() - 1, getRectangle(0).getCollumn())
+                    || grid.isOccupied(getRectangle(2).getRow() - 1, getRectangle(2).getCollumn())) {
+                return false;
+            }
+        }
+        else {
+            if(getRectangle(3).getRow() - 1 < 0 || grid.isOccupied(getRectangle(3).getRow() - 1, getRectangle(3).getCollumn())
+                    || grid.isOccupied(getRectangle(0).getRow() - 1, getRectangle(0).getCollumn())) {
+                return false;
+            }
+        }
         return true;
     }
 
     @Override
     public boolean canMoveRight() {
+        if (getRotation() == 0) {
+            if (getRectangle(3).getRow() + 1 >= Config.ROWS || grid.isOccupied(getRectangle(3).getRow() + 1, getRectangle(3).getCollumn())
+                    || grid.isOccupied(getRectangle(1).getRow() + 1, getRectangle(1).getCollumn())) {
+                return false;
+            }
+        }
+        else {
+            if (getRectangle(2).getRow() + 1 >= Config.ROWS || grid.isOccupied(getRectangle(2).getRow() + 1, getRectangle(2).getCollumn())
+                    || grid.isOccupied(getRectangle(1).getRow() + 1, getRectangle(1).getCollumn())) {
+                return false;
+            }
+        }
         return true;
     }
 }
