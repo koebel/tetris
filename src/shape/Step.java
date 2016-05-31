@@ -20,35 +20,21 @@ public class Step extends Shape {
      */
     @Override
     public void rotate() {
-        if (getRotation() == 0 & (getRectangle(0).getRow() <= 0 | getRectangle(0).getRow() >= Config.ROWS - 2)) {
-            return;
-        } else if (getRectangle(0).getRow() <= 0 | getRectangle(3).getRow() >= Config.ROWS - 2) {
-            return;
-        }
         for (Rectangle rectangle : getAllRectangles()) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
         }
-        if (getRotation() == 0) {
-            int xMovement = -1;
-            int i = 0;
-            for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + xMovement, rectangle.getCollumn() + xMovement, 40, ID));
-                ++xMovement;
-            }
-        } else {
-            int yMovement = 1;
-            int i = 0;
-            for (Rectangle rectangle : getAllRectangles()) {
-                setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, ID));
-                rectangle.setPosition(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement);
-                --yMovement;
+        switch(getRotation()) {
+            case 0:
+                setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() - 2, GRIDSIZE, ID));
+                setRectangle(1, new Rectangle(getRectangle(1).getRow(),getRectangle(1).getCollumn() ,GRIDSIZE, ID));
+                setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
+                setRectangle(3, new Rectangle(getRectangle(3).getRow() - 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
+                for (Rectangle rectangle : getAllRectangles()) {
+                    grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), ID);
+                }
+                setRotation(1);
             }
         }
-        for (Rectangle rectangle : getAllRectangles()) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 1);
-        }
-        setRotation(getRotation() == 1 ? 0 : 1);
-    }
 
     /**
      * initializes the 4 needed Rectangles
@@ -66,23 +52,19 @@ public class Step extends Shape {
     @Override
     protected boolean canMoveDown() {
         if (getRotation() == 0) {
-            if (getRectangle(0).getCollumn() >= 23 || grid.isOccupied(getRectangle(0).getRow(), getRectangle(0).getCollumn() + 1)) {
+            if (getRectangle(0).getCollumn() >= 23 || grid.isOccupied(getRectangle(0).getRow(), getRectangle(0).getCollumn() + 1)
+                    || grid.isOccupied(getRectangle(1).getRow(), getRectangle(1).getCollumn() + 1)
+                    || grid.isOccupied(getRectangle(3).getRow(), getRectangle(3).getCollumn() + 1)) {
                 return false;
             }
         }
-        else if(getRotation() == 1) {
-
-        }
-        else if(getRotation() == 2) {
-
-        }
         else {
-            for (Rectangle rectangle : getAllRectangles()) {
-                if (rectangle.getCollumn() >= 23 || grid.isOccupied(rectangle.getRow(), rectangle.getCollumn() + 1)) {
-                    return false;
-                }
+            if (getRectangle(1).getCollumn() >= 23 || grid.isOccupied(getRectangle(1).getRow(), getRectangle(1).getCollumn() + 1)
+                    || grid.isOccupied(getRectangle(3).getRow(), getRectangle(3).getCollumn() + 1)) {
+                return false;
             }
         }
+
         return true;
     }
 
