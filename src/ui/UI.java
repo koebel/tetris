@@ -37,13 +37,15 @@ public class UI extends PApplet {
 
     @Override
     public void draw() {
+        int tempscore = 0;
         if (!keyPressed) {
             frameRate(Config.getFRAMERATE());
         }
         grid.drawGrid();
         if (shape.moveVertical(grid)) {
             // check if there are full Rows in the grid
-            score += grid.checkGrid();
+            tempscore = grid.checkGrid();
+            score += (tempscore * tempscore * 10);
             shape = Shape.getNewShape((int) random(0, 3), 5, 4);
         }
         //draw circle which hides the incoming objects
