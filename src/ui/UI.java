@@ -31,7 +31,7 @@ public class UI extends PApplet {
     public void setup() {
         app = this;
         grid = new Grid();
-        shape = Shape.getNewShape((int) random(0, 3), 5, 4);
+        shape = Shape.getNewShape((int) random(0, 3), 4, 4);
         //frameRate(Config.getFRAMERATE());
     }
 
@@ -46,7 +46,7 @@ public class UI extends PApplet {
             // check if there are full Rows in the grid
             tempscore = grid.checkGrid();
             score += (tempscore * tempscore * 10);
-            shape = Shape.getNewShape((int) random(0, 3), 5, 4);
+            shape = Shape.getNewShape((int) random(0, 3), 4, 4);
         }
         //draw circle which hides the incoming objects
         {
