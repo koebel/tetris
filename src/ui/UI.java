@@ -8,6 +8,7 @@ package ui;
 import config.Config;
 import processing.core.PApplet;
 import shape.Shape;
+import shape.Step;
 
 public class UI extends PApplet {
 
@@ -87,7 +88,13 @@ public class UI extends PApplet {
                     shape.moveHorizontal(true);
                     break;
                 case SHIFT:
-                    shape.rotate();
+                    if(shape.getClass() == Step.class) {
+                        if(shape.canMoveRight())
+                            shape.rotate();
+                    }
+                    else {
+                        shape.rotate();
+                    }
                     break;
                 case DOWN:
                     frameRate(Config.getFRAMERATE() * 3);
