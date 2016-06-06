@@ -11,14 +11,14 @@ public class Config {
     public final static int ROWS = 10;
     public final static int COLlUMNS = 24;
 
-    private static int FRAMERATE = 5;
+    private static float FRAMERATE = 5;
 
 
-    public static int getFRAMERATE() {
+    public static float getFRAMERATE() {
         return FRAMERATE;
     }
 
-    public static void setFRAMERATE(int framerate){
+    public static void setFRAMERATE(float framerate){
         FRAMERATE = framerate;
     }
 

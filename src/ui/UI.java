@@ -7,8 +7,7 @@ package ui;
 
 import config.Config;
 import processing.core.PApplet;
-import shape.Shape;
-import shape.Step;
+import shape.*;
 
 public class UI extends PApplet {
 
