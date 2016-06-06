@@ -44,7 +44,7 @@ public class Line extends Shape {
                 ++xMovement;
             }
         } else {
-            int yMovement = 1;
+            int yMovement = 0;
             int i = 0;
             for (Rectangle rectangle : getAllRectangles()) {
                 setRectangle(i++, new Rectangle(rectangle.getRow() + yMovement, rectangle.getCollumn() + yMovement, 40, ID));
