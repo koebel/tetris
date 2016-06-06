@@ -88,7 +88,7 @@ public class UI extends PApplet {
                     shape.moveHorizontal(true);
                     break;
                 case SHIFT:
-                    if(shape.getClass() == Step.class) {
+                    if(shape.getClass() == Step.class && shape.getRotation() == 1) {
                         if(shape.canMoveRight())
                             shape.rotate();
                     }
