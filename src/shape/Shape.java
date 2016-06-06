@@ -2,7 +2,6 @@ package shape;
 
 import config.Config;
 import ui.Grid;
-import ui.UI;
 
 /**
  * Created by yanni on 02.05.2016

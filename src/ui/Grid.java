@@ -31,7 +31,12 @@ public class Grid {
     private int[][] matrix = new int[Config.ROWS][Config.COLlUMNS];
 
     public Grid() {
-        grid = this;
+        System.out.println("Check");
+        if(grid == null){
+            grid = this;
+        } else {
+            throw new RuntimeException("Singelton class can only be initialized once");
+        }
         // matrix initialisieren
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {

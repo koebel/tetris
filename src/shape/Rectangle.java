@@ -33,22 +33,6 @@ public class Rectangle {
     }
 
     //***** getter & setter
-    protected void setX(int x) {
-        this.x = x;
-    }
-
-    protected int getX() {
-        return this.x;
-    }
-
-    protected void setY(int y) {
-        this.y = y;
-    }
-
-    protected int getY() {
-        return this.y;
-    }
-
     protected void setPosition(int x, int y){
         this.x = x;
         this.y = y;
