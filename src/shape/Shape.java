@@ -2,6 +2,7 @@ package shape;
 
 import config.Config;
 import ui.Grid;
+import ui.UI;
 
 /**
  * Created by yanni on 02.05.2016
@@ -33,25 +34,29 @@ public abstract class Shape {
 
     /**
      * initializes all the rectangles and arranges them for the initial spawn
-     * @param row spawning row point of the lowest left rectangle
+     *
+     * @param row     spawning row point of the lowest left rectangle
      * @param collumn spawning collumn point of the lowest left rectangle
      */
     protected abstract void initialize(int row, int collumn);
 
     /**
      * checks if the Line can move down
+     *
      * @return true if the shape can move down, false if not
      */
     protected abstract boolean canMoveDown();
 
     /**
      * checks if the Line can move right
+     *
      * @return true if the shape can move right, false if not
      */
     public abstract boolean canMoveRight();
 
     /**
      * checks if the Line can move down
+     *
      * @return true if the shape can move left, false if not
      */
     public abstract boolean canMoveLeft();
@@ -60,17 +65,18 @@ public abstract class Shape {
 
     /**
      * this method creates a new shape with the given parameter
+     *
      * @param random random number to create shape
      * @return Shape object
      */
-    public static Shape getNewShape(int random, int startX, int startY) {
+    public static Shape getNewShape(int random) {
         switch (random) {
             case 0:
-                return new Line(startX, startY);
+                return new Line(4, 4);
             case 1:
-                return new Step(startX, startY);
+                return new Step(4, 3);
             case 2:
-                return new Cube(startX, startY);
+                return new Cube(4, 2);
             default:
                 return null;
         }
@@ -78,9 +84,10 @@ public abstract class Shape {
 
     /**
      * moves the Shape object down
+     *
      * @return true if object is at the bottom of the grid
      */
-    public boolean moveVertical(Grid grid) {
+    public boolean moveVertical() {
         if (!canMoveDown()) {
             return true;
         }
@@ -96,16 +103,17 @@ public abstract class Shape {
 
     /**
      * moves the object left or right, depending on the boolean param
+     *
      * @param left move the to left = true, move to right = false
      */
     public void moveHorizontal(boolean left) {
         if (left) {
-            if(!canMoveLeft()) {
+            if (!canMoveLeft()) {
                 return;
             }
             move(-1, 0);
         } else {
-            if(!canMoveRight()) {
+            if (!canMoveRight()) {
                 return;
             }
             move(1, 0);
@@ -138,21 +146,20 @@ public abstract class Shape {
 
     /**
      * moves the shape depending on the x and y coordinates in param
+     *
      * @param x value for the movement of the x coordinate
      * @param y value for the movement of the y coordinate
      */
     private void move(int x, int y) {
         for (Rectangle rectangle : rectangles) {
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
             rectangle.setRow(rectangle.getRow() + x);
-            Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
         }
         for (Rectangle rectangle : rectangles) {
-            //if (rectangle.getCollumn() + y <= 23) {
-                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
-                rectangle.setCollumn(rectangle.getCollumn() + y);
-                Grid.grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
-            //}
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
+            rectangle.setCollumn(rectangle.getCollumn() + y);
+            grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), rectangle.SHAPE_ID);
         }
     }
 }

@@ -1,7 +1,6 @@
 package shape;
 
 import config.Config;
-import ui.Grid;
 
 /**
  * Created by yanni on 03.05.2016
@@ -23,15 +22,15 @@ public class Step extends Shape {
         for (Rectangle rectangle : getAllRectangles()) {
             grid.setGridValue(rectangle.getRow(), rectangle.getCollumn(), 0);
         }
-        if(getRotation() == 0) {
-                setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() - 2, GRIDSIZE, ID));
-                setRectangle(1, new Rectangle(getRectangle(1).getRow(),getRectangle(1).getCollumn() ,GRIDSIZE, ID));
-                setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
-                setRectangle(3, new Rectangle(getRectangle(3).getRow() - 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
-            }
-        if(getRotation() == 1) {
+        if (getRotation() == 0) {
+            setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() - 2, GRIDSIZE, ID));
+            setRectangle(1, new Rectangle(getRectangle(1).getRow(), getRectangle(1).getCollumn(), GRIDSIZE, ID));
+            setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
+            setRectangle(3, new Rectangle(getRectangle(3).getRow() - 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
+        }
+        if (getRotation() == 1) {
             setRectangle(0, new Rectangle(getRectangle(0).getRow(), getRectangle(0).getCollumn() + 2, GRIDSIZE, ID));
-            setRectangle(1, new Rectangle(getRectangle(1).getRow(),getRectangle(1).getCollumn() ,GRIDSIZE, ID));
+            setRectangle(1, new Rectangle(getRectangle(1).getRow(), getRectangle(1).getCollumn(), GRIDSIZE, ID));
             setRectangle(2, new Rectangle(getRectangle(2).getRow(), getRectangle(2).getCollumn(), GRIDSIZE, ID));
             setRectangle(3, new Rectangle(getRectangle(3).getRow() + 2, getRectangle(3).getCollumn(), GRIDSIZE, ID));
         }
@@ -44,6 +43,7 @@ public class Step extends Shape {
 
     /**
      * initializes the 4 needed Rectangles
+     *
      * @param startX x coordinate of spawning point
      * @param startY y coordinate of spawning point
      */
@@ -63,8 +63,7 @@ public class Step extends Shape {
                     || grid.isOccupied(getRectangle(3).getRow(), getRectangle(3).getCollumn() + 1)) {
                 return false;
             }
-        }
-        else {
+        } else {
             if (getRectangle(1).getCollumn() >= 23 || grid.isOccupied(getRectangle(1).getRow(), getRectangle(1).getCollumn() + 1)
                     || grid.isOccupied(getRectangle(3).getRow(), getRectangle(3).getCollumn() + 1)) {
                 return false;
@@ -78,13 +77,12 @@ public class Step extends Shape {
     public boolean canMoveLeft() {
 
         if (getRotation() == 0) {
-            if(getRectangle(0).getRow() - 1 < 0 || grid.isOccupied(getRectangle(0).getRow() - 1, getRectangle(0).getCollumn())
+            if (getRectangle(0).getRow() - 1 < 0 || grid.isOccupied(getRectangle(0).getRow() - 1, getRectangle(0).getCollumn())
                     || grid.isOccupied(getRectangle(2).getRow() - 1, getRectangle(2).getCollumn())) {
                 return false;
             }
-        }
-        else {
-            if(getRectangle(3).getRow() - 1 < 0 || grid.isOccupied(getRectangle(3).getRow() - 1, getRectangle(3).getCollumn())
+        } else {
+            if (getRectangle(3).getRow() - 1 < 0 || grid.isOccupied(getRectangle(3).getRow() - 1, getRectangle(3).getCollumn())
                     || grid.isOccupied(getRectangle(0).getRow() - 1, getRectangle(0).getCollumn())) {
                 return false;
             }
@@ -99,8 +97,7 @@ public class Step extends Shape {
                     || grid.isOccupied(getRectangle(1).getRow() + 1, getRectangle(1).getCollumn())) {
                 return false;
             }
-        }
-        else {
+        } else {
             if (getRectangle(2).getRow() + 1 >= Config.ROWS || grid.isOccupied(getRectangle(2).getRow() + 1, getRectangle(2).getCollumn())
                     || grid.isOccupied(getRectangle(1).getRow() + 1, getRectangle(1).getCollumn())) {
                 return false;

@@ -9,7 +9,6 @@ import config.Config;
 import processing.core.PApplet;
 import shape.Shape;
 
-
 public class UI extends PApplet {
 
     public static void main(String args[]) {
@@ -17,10 +16,10 @@ public class UI extends PApplet {
     }
 
     private static PApplet app;
-
-    Shape shape;
-    Grid grid;
-    int score = 0;
+    private Shape shape;
+    private Grid grid;
+    private int score = 0;
+    private int lastShape;
 
     //@Override
     public void settings() {
@@ -31,34 +30,49 @@ public class UI extends PApplet {
     public void setup() {
         app = this;
         grid = new Grid();
-        shape = Shape.getNewShape((int) random(0, 3), 4, 4);
-        //frameRate(Config.getFRAMERATE());
+        shape = Shape.getNewShape((int) random(0, 3));
+        frameRate(Config.getFRAMERATE());
     }
 
     @Override
     public void draw() {
-        int tempscore = 0;
+        int tempscore;
         if (!keyPressed) {
             frameRate(Config.getFRAMERATE());
         }
         grid.drawGrid();
-        if (shape.moveVertical(grid)) {
+        if (shape.moveVertical()) {
             // check if there are full Rows in the grid
             tempscore = grid.checkGrid();
             score += (tempscore * tempscore * 10);
-            shape = Shape.getNewShape((int) random(0, 3), 4, 4);
+            int random = (int)random(0,3);
+            if(random == lastShape){
+                switch (random){
+                    case 2:
+                        --random;
+                        break;
+                    case 1:
+                        ++random;
+                        break;
+                    case 0:
+                        ++random;
+                        break;
+                }
+            }
+            shape = Shape.getNewShape(random);
+            lastShape = random;
         }
         //draw circle which hides the incoming objects
         {
             fill(0);
             noStroke();
-            rect(0, 0, width, Config.BORDER_Y);
+            rect(0, 0, width, Config.BORDER_Y + (2 * Config.GRIDSIZE));
         }
-        
+
         //score
         fill(255);
-        textSize(16);
-        text("score: " +score, 50, 60);
+        textSize(20);
+        text("score: " + score, 50, 60);
     }
 
 
@@ -78,17 +92,15 @@ public class UI extends PApplet {
                 case DOWN:
                     frameRate(Config.getFRAMERATE() * 3);
                     break;
+                case UP:
+                    grid.clear();
+                    shape = Shape.getNewShape((int)random(0,3));
+                    loop();
+                    break;
                 default:
                     frameRate(Config.getFRAMERATE());
             }
         }
-    }
-
-    /**
-     * draws the board on the UI
-     */
-    private void drawUI() {
-
     }
 
     /**
